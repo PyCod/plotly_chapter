@@ -15,9 +15,8 @@ APP = dash.Dash(__name__)
 DF = pd.read_csv('immo.csv')
 
 
-# Create the HTML layout
-# Use html for 1:1 html tags
-# Use dcc for more interactive stuff like button and sliders
+# Use lots of divs! Most of the time you'll alternate between
+# using rows and columns
 APP.layout = html.Div(children=[
     
     html.Div([
@@ -48,11 +47,16 @@ APP.layout = html.Div(children=[
     ], className='row'),
 ])
 
-# Callbacks!
-# These are the real magic of plotly dash
-# Use any attribute within the layout as input
-# and ouput to any other attribute based on the 
-# return value of a function
+# You can change the plot background color to transparent so it just folows
+# the main page style
+# Use update_traces for custom marker colors, individual colors possible too
+# If using non plotly express you can give it along with your traces like so:
+# fig.add_trace(go.Bar(
+#     x=months,
+#     y=[20, 14, 25, 16, 18, 22, 19, 15, 12, 16, 14, 17],
+#     name='Primary Product',
+#     marker_color='indianred'
+# ))
 @APP.callback(
     Output(component_id='histogram', component_property='figure'),
     [Input(component_id='col_select', component_property='value')]
